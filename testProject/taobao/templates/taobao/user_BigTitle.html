@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页标题</title>
+    <style>
+    *{
+        <!--font-family: '楷体';-->
+    }
+    a{
+        text-decoration:none
+        }
+    body{
+     background:url(http://img.pptjia.com/image/20180702/d4449d91899686ae6eff3a9d8353f429.jpg) no-repeat;
+     background-size:100%;
+    }
+    </style>
+</head>
+<body>
+    <center>
+        <h1>Welcome to register</h1>
+        <a href="{%url 'taobao:user_Registered'%}"><h2>注册用户</h2></a>
+        <a href="{%url 'taobao:user_Login'%}"><h2>登录用户</h2></a>
+        <a href="{%url 'taobao:user_ModityPassword'%}"><h2>忘记密码</h2></a>
+        <input type="button" value="返回首页" onClick="location.href= '{%url 'taobao:Enter'%}'">
+    </center>
+</body>
+</html>

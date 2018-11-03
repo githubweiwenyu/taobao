@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查看自己发布的商品</title>
+</head>
+<body>
+<h1>发布的商品如下</h1>
+<ul>
+    {% for i in commodity %}
+    <li>
+        商品编号：{{i.commodity_id}}
+        商品名字：{{i.commodity_name}}
+        商品价格：{{i.commodity_price}}
+        商品分类：{{i.commodity_sort}}
+        商品库存：{{i.stock}}
+        商品发布日期：{{i.publish_date}}
+    </li>
+     {% endfor %}
+</ul>
+    <a href="{%url 'taobao:up' page user_id user_state%}">上一页</a>
+    <a href="{%url 'taobao:next' page user_id user_state%}">下一页</a>
+<input type="button" value="返回上一级" onclick="location.href= '{%url 'taobao:commodity_BigTitle' user_id user_state%}'">
+</body>
+</html>

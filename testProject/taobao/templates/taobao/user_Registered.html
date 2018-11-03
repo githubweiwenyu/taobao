@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <style>
+     body{
+         background:url(http://img.pptjia.com/image/20180702/d4449d91899686ae6eff3a9d8353f429.jpg) no-repeat;
+         background-size:100%;
+    }
+    </style>
+</head>
+<body>
+    <center>
+        <h1>Welcome to register</h1>
+        {%if a%}
+        <h1>账号重复，请重新输入</h1>
+        {%endif%}
+        <form action="{%url 'taobao:user_Registered_2'%}" method="post">
+            {% csrf_token %}
+            user_account:<br>
+            <input type="text" name="user_account" placeholder="长度为20"><br>
+            user_password:<br>
+            <input type="text" name="user_password" placeholder="长度为20"><br>
+            user_question:<br>
+            <input type="text" name="user_question"><br>
+            user_answer:<br>
+            <input type="text" name='user_answer'><br>
+            user_name:<br>
+            <input type="text" name="user_name"><br><br>
+            <input type="submit" value="注册"><br><br>
+            <input type="button" value="返回首页" onClick="location.href= '{% url 'taobao:user_BigTitle' %}'"/>
+        </form>
+    </center>
+</body>
+</html>

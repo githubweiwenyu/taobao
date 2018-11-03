@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查看账户信息</title>
+</head>
+<body>
+    {%if user %}
+            {% if user_id%}
+                <h1>正在查看账户信息</h1>
+                <h2>user_account:{{user.user_account}}</h2>
+                <h2>user_password:{{user.user_password}}</h2>
+                <h2>user_name:{{user.user_name}}</h2>
+                <h2>user_RMB:{{user.user_RMB}}</h2>
+                <h2>user_time:{{user.user_time}}</h2>
+                <a href="{%url 'taobao:user_TwoTitle' user_id%}"><h1>返回上一页</h1></a>
+            {% endif %}
+    {% endif %}
+</body>
+</html>

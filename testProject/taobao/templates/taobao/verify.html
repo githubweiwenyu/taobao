@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>核实账号</title>
+</head>
+<body>
+    <center>
+         <form action="{%url 'taobao:verify'%}" method="post">
+            {% csrf_token %}
+            <h1>你正在修改密码：</h1>
+            {%if account_error%}
+            <h1>你输入的账号错误</h1>
+            {%endif%}
+            请输入用户名：
+            <input type="text" name="user_account">
+            <input type="submit" value="提交账号，等待审核">
+        </form>
+    </center>
+</body>
+</html>

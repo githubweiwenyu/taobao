@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>充值余额</title>
+</head>
+<body>
+    {%if user_id%}
+        <form action="{%url 'taobao:recharge_2' user_id%}" method="post">
+            {% csrf_token %}
+            {%if b%}
+            金额不足,请充值
+            {%endif%}
+            <h1>正在充值金额</h1><br>
+            <b>请输入充值金额：</b>
+            <input type="text" name="RMB">
+            <input type="submit" value="充值">
+            <a href="{%url 'taobao:user_TwoTitle' user_id%}"><h1>返回上一页</h1></a>
+        </form>
+    {%endif%}
+</body>
+</html>

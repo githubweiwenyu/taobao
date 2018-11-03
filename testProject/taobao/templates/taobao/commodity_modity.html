@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改商品</title>
+</head>
+<body>
+
+    {%if commodity_list%}
+    <h1>请选中你要修改的商品：</h1>
+    {%for i in commodity_list.commodity_set.all%}
+    <a href="{%url 'taobao:commodity_modify_sub' i.commodity_id user_id user_state%}">
+        商品编号：{{i.commodity_id}}
+        商品名字：{{i.commodity_name}}
+        商品价格：{{i.commodity_price}}
+        商品分类：{{i.commodity_sort}}
+        商品库存：{{i.stock}}
+        商品发布日期：{{i.publish_date}}
+    </a>
+    <br>
+    {%endfor%}
+    {%endif%}
+
+
+    {%if commodity_id%}
+        {%if commodity%}
+        <h2>你正在修改的商品编号为：{{commodity_id}}</h2>
+        <form action="{%url 'taobao:commodity_modify_2' commodity_id user_id user_state%}" method="post">
+            {% csrf_token %}
+        请修改以下信息：
+        商品名字：<input type="text" name="commodity_name">
+        商品价格：<input type="text" name="commodity_price">
+        商品库存：<input type="text" name="stock">
+            <input type="submit" value="提交">
+        </form>
+        {%endif%}
+    {%endif%}
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+        {%if password_error%}
+            <h1>你输入的密码错误</h1>
+        {%endif%}
+        {%if account_error%}
+            <h1>你输入的账号错误</h1>
+        {%endif%}
+    <form action="{%url 'taobao:commodity_user'%}" method="post">
+        {%csrf_token%}
+        请输入账号：<input type="text" name="user_account">
+        请输入密码：<input type="text" name="user_password">
+        <input type="submit" value="登录">
+    </form>
+</body>
+</html>
