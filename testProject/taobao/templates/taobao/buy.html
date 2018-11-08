@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>购买商品</title>
+</head>
+<body>
+<a href="{% url 'taobao:look_cart' user_id%}"><input type="button" value="查看购物车"></a>
+
+<ul>
+    {% for i in commoditys%}
+    <li>
+        商品编号：{{i.commodity_id}}
+        商品名字：{{i.commodity_name}}
+        商品价格：{{i.commodity_price}}
+        商品库存：{{i.stock}}
+        <a href="{% url 'taobao:add_cart' user_id i.commodity_id %}"><input type="button" value="加入购物车"></a>
+    </li>
+    {%empty%}
+            商城暂时没有任何商品
+    {%endfor%}
+</ul>
+<a href="{%url 'taobao:user_TwoTitle' user_id%}"><input type="button" value="返回上一页"></a>
+</body>
+</html>

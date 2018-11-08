@@ -6,6 +6,7 @@
 </head>
 <body>
 <h1>发布的商品如下</h1>
+
 <ul>
     {% for i in commodity %}
     <li>
@@ -16,10 +17,13 @@
         商品库存：{{i.stock}}
         商品发布日期：{{i.publish_date}}
     </li>
-     {% endfor %}
+        {%empty%}
+            你暂时没有发布任何商品
+    {% endfor %}
 </ul>
-    <a href="{%url 'taobao:up' page user_id user_state%}">上一页</a>
-    <a href="{%url 'taobao:next' page user_id user_state%}">下一页</a>
-<input type="button" value="返回上一级" onclick="location.href= '{%url 'taobao:commodity_BigTitle' user_id user_state%}'">
+    <a href="{%url 'taobao:up' page user_id %}">上一页</a>
+    <a href="{%url 'taobao:next' page user_id %}">下一页</a>
+<input type="button" value="返回上一级" onclick="location.href= '{%url 'taobao:commodity_BigTitle' user_id %}'">
+
 </body>
 </html>

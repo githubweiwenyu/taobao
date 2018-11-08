@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>商户升级</title>
+</head>
+<body>
+    <div>
+        {{b}}
+    </div>
+
+    你现在还不是商家，升级为商家需要交付10w元保证金，是否支付？
+    <a href="{%url 'taobao:decuct' user_id%}">支付</a>
+    <br>
+
+    <a href="{%url 'taobao:Enter'%}"><input type="button" value="返回首页"></a>
+</body>
+</html>

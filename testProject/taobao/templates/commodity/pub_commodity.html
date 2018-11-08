@@ -5,18 +5,18 @@
     <title>发布商品</title>
 </head>
 <body>
-   <form action="{%url 'taobao:commodity_add' user_id user_state%}" method="post">
+   <form action="{%url 'taobao:commodity_add' user_id%}" method="post">
     {%csrf_token%}
-    商品名称<input type="text" name="commodity_name"> <br>
-    商品单价<input type="text" name="commodity_price"> <br>
-    商品分类
+    商品名称：<input type="text" name="commodity_name"> <br>
+    商品单价：<input type="text" name="commodity_price"> <br>
+    商品分类：
     <select name="commodity_sort">
         <option value="LOL">LOL</option>
         <option value="DNF">DNF</option>
         <option value="M3G">M3G</option>
     </select> <br>
 
-    库存数量<input type="text" name="stock"> <br>
+    库存数量：<input type="text" name="stock"> <br>
     <input type="submit" value="发布">
 </form>
 </body>

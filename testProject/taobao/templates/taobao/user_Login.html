@@ -5,24 +5,24 @@
     <title>登录用户</title>
 </head>
 <body>
-    <center>
+    <div class="a1">
         {%if password_error%}
             <h1>你输入的密码错误</h1>
         {%endif%}
         {%if account_error%}
             <h1>你输入的账号错误</h1>
         {%endif%}
+
         <form action="{%url 'taobao:user_Login_2'%}" method="post">
             {% csrf_token %}
-            <h1>请输入用户名：</h1>
+            请输入用户名：
             <input type="text" name="user_account">
-            <h1>请输入用户密码</h1>
+            请输入用户密码
             <input type="text" name="user_password">
             <input type="submit" value="登录">
-
         </form>
         <br>
         <input type="button" value="返回首页" onClick="location.href= '{%url 'taobao:user_BigTitle'%}'">
-    </center>
+    </div>
 </body>
 </html>

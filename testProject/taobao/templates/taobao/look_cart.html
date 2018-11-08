@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查看购物车</title>
+</head>
+<body>
+{% if user_id%}
+    <a href="{% url 'taobao:buy_summarize' user_id%}"><input type="button" value="结算购物车"></a>
+    <a href="{% url 'taobao:buy_empty' user_id%}"><input type="button" value="清空购物车"></a>
+    <br>
+
+
+    {%for i in commoditys%}
+        商品编号：{{i.commodity_id}}
+        商品名称：{{i.commodity_name}}
+        商品单价：{{i.commodity_price}}
+        商品总数：{{i.commodity_num}}
+        商品总价格：{{i.commodity_sum}}
+        <br>
+    {%empty%}
+        你的购物车为空
+    {%endfor%}
+
+    <br>
+<input type="button" value="返回上一页" onClick="location.href= '{%url 'taobao:user_BigTitle'%}'">
+
+{%endif%}
+</body>
+</html>

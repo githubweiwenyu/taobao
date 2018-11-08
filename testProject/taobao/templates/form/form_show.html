@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--<form action="{% url 'taobao:form_show' %}" method="post">-->
+        <!--{% csrf_token %}-->
+        <!--<ul>-->
+        <!--{{ form.as_ul }}-->
+        <!--</ul>-->
+        <!--<input type="submit" value="提交" />-->
+<!--</form>-->
+
+    <div>
+        <!--{# form.errors 会显示所有未通过验证的表单项以及未通过的原因，由于语言问题。一般不在页面使用此种方式 #}-->
+        {{ form.errors }}
+
+    </div>
+
+
+<!--<form action="{% url 'taobao:form_show' %}" method="post">-->
+    <!--{% csrf_token %}-->
+    <!--<label for="{{ form.username.id_for_label }}">账号:</label>{{ form.username }}-->
+    <!--<label for="{{ form.password.id_for_label }}">密码:</label>{{ form.password }}-->
+    <!--<input type="submit" value="提交" />-->
+
+<!--</form>-->
+
+<!--<form action="{% url 'taobao:form_show' %}" method="post">-->
+    <!--{% csrf_token %}-->
+    <!--{{ form.username.label_tag }} {{ form.username }}-->
+    <!--{{ form.password.label_tag }} {{ form.password }}-->
+    <!--<input type="submit" value="提交" />-->
+<!--</form>-->
+<!--{{ form.errors }}-->
+<!--{{ form.username.errors }}-->
+
+<form action="{% url 'taobao:form_show' %}" method="post">
+    {% csrf_token %}
+    <ul>
+    {% for field in form %}
+    <li>
+        {{ field.label_tag }} {{ field }} {{ field.errors }}
+        {% if field.help_text %}
+        {{ field.help_text }}
+        {% endif %}
+    </li>
+    {% endfor %}
+    </ul>
+    <input type="submit" value="提交" />
+</form>
+</body>
+</html>

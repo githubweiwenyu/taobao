@@ -7,11 +7,6 @@
     a{
         text-decoration:none
     }
-    body{
-     height:890px;
-     background:url(http://img.pptjia.com/image/20180702/d4449d91899686ae6eff3a9d8353f429.jpg) no-repeat;
-     background-size:100% 100%;
-    }
     </style>
 </head>
 <body>
@@ -19,25 +14,10 @@
         {% if user_id %}
             <h1>Welcome  to</h1>
             <a href="{%url 'taobao:user_look' user_id%}"><h2>查看账户信息</h2></a>
+            <a href="{%url 'taobao:buy' user_id%}"><h2>购买商品</h2></a>
             <a href="{%url 'taobao:modify_password' user_id%}"><h2>修改账户密码</h2></a>
             <a href="{%url 'taobao:recharge' user_id%}"><h2>充值账户余额</h2></a>
-            <input type="button" value="返回首页" onClick="location.href= '{%url 'taobao:user_BigTitle'%}'">
-
-
-
-        <ul>
-            {% for i in commodity_list %}
-            <li>
-                商品编号：{{i.commodity_id}}
-                商品名字：{{i.commodity_name}}
-                商品价格：{{i.commodity_price}}
-                商品库存：{{i.stock}}
-            </li>
-            <a href="{% url 'taobao:buy' user_id i.commodity_id %}"><input type="button" value="购买"></a>
-             {% endfor %}
-        </ul>
-
-
+            <input type="button" value="退出登录" onClick="location.href= '{%url 'taobao:user_BigTitle'%}'">
         {%endif%}
     </center>
 </body>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>发布修改后的商品</title>
+</head>
+<body>
+
+    {%if commodity_id%}
+        {%if commodity%}
+        <h2>你正在修改的商品编号为：{{commodity_id}}</h2>
+        <form action="{%url 'taobao:commodity_modify_2' commodity_id user_id %}" method="post">
+            {% csrf_token %}
+        请修改以下信息：
+        商品名字：<input type="text" name="commodity_name">
+        商品价格：<input type="text" name="commodity_price">
+        商品库存：<input type="text" name="stock">
+            <input type="submit" value="提交">
+        </form>
+        {%endif%}
+    {%endif%}
+</body>
+</html>
