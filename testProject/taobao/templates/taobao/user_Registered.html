@@ -6,20 +6,43 @@
 </head>
 <body>
     <div>
+        {%comment%}
         <h1>Welcome to register</h1>
         {%if a%}
         <h1>账号重复，请重新输入</h1>
         {%endif%}
-        <form action="{%url 'taobao:user_Registered_2'%}" method="post">
+        <form action="{%url 'taobao:user_Registered'%}" method="post">
             {% csrf_token %}
             user_account:<input type="text" name="user_account" placeholder="输入账号，长度为20"><br>
             user_password:<input type="text" name="user_password" placeholder="输入密码，长度为20"><br>
             user_question:<input type="text" name="user_question" placeholder="输入密保提示问题，用于找回密码"><br>
             user_answer:<input type="text" name="user_answer" placeholder="输入问题答案"><br>
             user_name:<input type="text" name="user_name" placeholder="请输入真实姓名"><br>
+            <input type="submit" value="注册">
         </form>
+        {%endcomment%}
+
+
+
+
+        <form action="{% url 'taobao:user_Registered' %}" method="post">
+            {% csrf_token %}
+            <p>
+                {{ form.as_ul}}
+
+            </p>
+            <div>{{form.errors}}</div>
+            <p>{{error_msg}}</p>
+            <input type="submit" value="提交" />
+        </form>
+
+
+
     </div>
-<input type="submit" value="注册">
+
 <input type="button" value="返回首页" onClick="location.href= '{% url 'taobao:user_BigTitle' %}'"/>
+
+
+
 </body>
 </html>

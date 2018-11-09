@@ -4,11 +4,15 @@ from django.utils import timezone
 from django.db.models import F
 from django.http import response, HttpResponse, HttpResponseRedirect
 from django.template import loader ,Context
+# from .forms import LoginForm
+from django import forms
 import time
 import math
 import random
 
 
+def index(request):
+    return render(request, 'index.html')
 
 
 def Enter(request):
@@ -20,77 +24,121 @@ def user_BigTitle(request):
 
 
 
-# #   利用django的form框架
-from django.urls import reverse
-from .forms import LoginForm
-def form_show(request):
+#   定义验证用户的类
+class LoginForm(forms.Form):
+    user_account = forms.CharField(max_length=20, required=True, min_length=6, label="user_account",
+                                   error_messages={"required": "不能为空",
+                                                   "max_length": "用户名最长20位",
+                                                   "min_length": "用户名最短6位"})
+    user_password = forms.CharField(max_length=20, required=True, min_length=6, label="user_password",
+                                    error_messages={"required": "不能为空",
+                                                    "max_length": "用户名最长20位",
+                                                    "min_length": "用户名最短6位"},
+                                    widget=forms.PasswordInput())
+    user_question = forms.CharField(max_length=200, required=True, min_length=6, label="user_question",
+                                    error_messages={"required": "不能为空",
+                                                    "max_length": "用户名最长20位",
+                                                    "min_length": "用户名最短6位"})
+    user_answer = forms.CharField(max_length=200, required=True, min_length=6, label="user_answer",
+                                  error_messages={"required": "不能为空",
+                                                  "max_length": "用户名最长200位",
+                                                  "min_length": "用户名最短6位"})
+    user_name = forms.CharField(max_length=20, required=True, min_length=6, label="user_name",
+                                error_messages={"required": "不能为空",
+                                                "max_length": "用户名最长20位",
+                                                "min_length": "用户名最短6位"})
 
-    context = dict()
 
+#   利用django的form框架注册用户
+def user_Registered(request):
     form = LoginForm()
 
     if request.method == "POST":
         form = LoginForm(request.POST)
         # is_valid()方法用于验证提交的数据是否符合Form类的字段定义
         if form.is_valid():
-            return HttpResponseRedirect(reverse("taobao:login_success"))
-
+            if User.objects.filter(user_account=form.cleaned_data['user_account']).exists():
+                error_msg = "账号重复，请重新输入"
+                context = dict()
+                context['form'] = form
+                context['error_msg'] = error_msg
+                return render(request, 'taobao/user_Registered.html', context)
+            user = User(user_account=form.cleaned_data['user_account'],
+                        user_password=form.cleaned_data['user_password'],
+                        user_question=form.cleaned_data['user_question'],
+                        user_answer=form.cleaned_data['user_answer'],
+                        user_name=form.cleaned_data['user_name'])
+            user.save()
+            request.session['user_id'] = user.id
+            User_login_history.objects.create(loginuser_id=user, login_time=timezone.now())
+            return render(request, 'taobao/user_TwoTitle.html', {'user_id': user.id})
+    context = dict()
     context['form'] = form
-    return render(request, "form/form_show.html", context)
+    return render(request, 'taobao/user_Registered.html', context)
 
-def form_login_success(request):
-    return HttpResponse("login success, ok.")
-
-
-#   注册用户
-def user_Registered(request):
-    return render(request, 'taobao/user_Registered.html')
-
-
-def user_Registered_2(request):
-    if User.objects.filter(user_account=request.POST['user_account']).exists():
-        a = '账号重复，请重新输入'
-        return render(request, 'taobao/user_Registered.html', {'a': a})
-    else:
-        user = User(user_account=request.POST['user_account'],
-                    user_password=request.POST['user_password'],
-                    user_question=request.POST['user_question'],
-                    user_answer=request.POST['user_answer'],
-                    user_name=request.POST['user_name'])
-        user.save()
-        return render(request, 'taobao/user_TwoTitle.html', {'user_id': user.id})
 
 
 #   登录用户
-def user_Login(request):
-    return render(request, 'taobao/user_Login.html')
+class user_Login(forms.Form):
+    user_account = forms.CharField(max_length=20, required=True, min_length=6, label="user_account",
+                                   error_messages={"required": "不能为空",
+                                                   "max_length": "用户名最长20位",
+                                                   "min_length": "用户名最短6位"})
+    user_password = forms.CharField(max_length=20, required=True, min_length=6, label="user_password",
+                                    error_messages={"required": "不能为空",
+                                                    "max_length": "用户名最长20位",
+                                                    "min_length": "用户名最短6位"})
 
 
 #   登录用户验证
 def user_Login_2(request):
-    if User.objects.filter(user_account=request.POST['user_account']).exists():
-        a = User.objects.get(user_account=request.POST['user_account'])
-        if a.user_password == request.POST['user_password']:
-            user_id = User.objects.get(user_account=request.POST['user_account']).id
-            # q = Commodity.objects.all()
-            # return render(request, 'taobao/user_TwoTitle.html', {'user_id': user_id, 'commodity_list': q})
-            return render(request, 'taobao/user_TwoTitle.html', {'user_id': user_id})
-        else:
-            a = '密码错误'
-            return render(request, 'taobao/user_Login.html', {'password_error': a})
-    else:
-        b = '账号错误'
-        return render(request, 'taobao/user_Login.html', {'account_error': b})
+    form = user_Login()
+    if request.method == 'POST':
+        form = user_Login(request.POST)
+
+        if form.is_valid():
+            if User.objects.filter(user_account=form.cleaned_data['user_account']).exists():
+                a = User.objects.get(user_account=request.POST['user_account'])
+
+                if a.user_password == form.cleaned_data['user_password']:
+
+                    request.session['user_id'] = a.id
+                    return render(request, 'taobao/user_TwoTitle.html', {'user_id': a.id})
+
+                else:
+                    error = '密码错误'
+                    context = dict()
+                    context['form'] = form
+                    context['errors'] = error
+                    return render(request, 'taobao/user_Login.html', context)
+            else:
+                error = '账号不存在'
+                context = dict()
+                context['form'] = form
+                context['errors'] = error
+                return render(request, 'taobao/user_Login.html', context)
+    context = dict()
+    context['form'] = form
+    return render(request, 'taobao/user_Login.html', context)
 
 
+#   用户大标题
 def user_TwoTitle(request, user_id):
     return render(request, 'taobao/user_TwoTitle.html', {'user_id': user_id})
+
+
+#   查看用户登录记录
+def user_history(request):
+    user_history = User_login_history.objects.all()
+    print(user_history)
+    return render(request, 'taobao/user_history.html', {'user_historys': user_history})
 
 
 #   查看用户信息
 def user_look(request, user_id):
     user = User.objects.get(pk=user_id)
-    return render(request, 'taobao/user_look.html', {'user': user, 'user_id': user_id})
+    user_id_session = request.session.get('user_id')
+    return render(request, 'taobao/user_look.html', {'user': user, 'user_id': user_id_session})
 
 
 #   购买商品
@@ -229,7 +277,8 @@ def decuct(request, user_id):
 
 #   发布商品
 def commodity_pub(request, user_id):
-    return render(request, 'commodity/pub_commodity.html', {'user_id': user_id})
+    a = Commodity_sort.objects.all()
+    return render(request, 'commodity/pub_commodity.html', {'user_id': user_id, 'commodity_sort': a})
 
 
 #   添加商品
@@ -252,6 +301,24 @@ def commodity_look_pub(request, user_id):
     page = 1
     b = Commodity.objects.filter(commodity_user=a)[(int(page) - 1) * 2:int(page) * 2]
     return render(request, 'commodity/commodity_look_pub.html', {'commodity': b, 'page': page, 'user_id': user_id})
+
+
+#   查看商品的分类
+def commodity_sort(request, user_id):
+    a = Commodity_sort.objects.all()
+    return render(request, 'commodity/commodity_sort.html', {'commodity_sort': a, 'user_id': user_id})
+
+
+#   添加商品分类
+def add_sort(request, user_id):
+    return render(request, 'commodity/add_sort.html', {'user_id': user_id})
+
+
+#   确认添加商品分类
+def check_add_sort(request, user_id):
+    Commodity_sort.objects.create(sort_name=request.POST['sort_name'],
+                                  sort_shortcut=request.POST['sort_shortcut'])
+    return render(request, 'commodity/commodity_BigTitle.html', {'user_id': user_id})
 
 
 def commodity_BigTitle(request, user_id):

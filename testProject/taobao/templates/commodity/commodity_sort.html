@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>商品分类</title>
+</head>
+<body>
+    <ul>
+    {%for i in commodity_sort%}
+        <li>
+            商品的名称是：{{i.sort_name}}
+            商品的编号是：{{i.sort_shortcut}}
+        </li>
+        {%empty%}
+            现在没有商品的分类
+    {%endfor%}
+
+    </ul>
+
+<input type="button" value="添加商品分类" onClick="location.href= '{%url 'taobao:add_sort' user_id%}'">
+<input type="button" value="返回上一级" onclick="location.href= '{%url 'taobao:commodity_BigTitle' user_id %}'">
+</body>
+</html>

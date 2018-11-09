@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加商品分类</title>
+</head>
+<body>
+<form action="{%url 'taobao:check_add_sort' user_id%}" method="post">
+    {%csrf_token%}
+    请输入添加的商品分类的名字：<input type="text" name="sort_name">
+    请输入添加的商品分类的简称：<input type="text" name="sort_shortcut" placeholder="三位大写字母">
+    <input type="submit" name="确认添加">
+    <input type="button" value="返回上一级" onclick="location.href= '{%url 'taobao:commodity_BigTitle' user_id %}'">
+</form>
+</body>
+</html>

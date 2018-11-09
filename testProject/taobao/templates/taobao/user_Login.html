@@ -5,6 +5,7 @@
     <title>登录用户</title>
 </head>
 <body>
+    {%comment%}
     <div class="a1">
         {%if password_error%}
             <h1>你输入的密码错误</h1>
@@ -24,5 +25,19 @@
         <br>
         <input type="button" value="返回首页" onClick="location.href= '{%url 'taobao:user_BigTitle'%}'">
     </div>
+    {%endcomment%}
+
+    <form action="{% url 'taobao:user_Login_2' %}" method="post">
+        {% csrf_token %}
+        <p>
+            {{ form.as_ul}}
+        </p>
+        {{form.errors}}
+        <p>{{errors}}</p>
+        <input type="submit" value="提交" />
+    </form>
+
+
+
 </body>
 </html>

@@ -10,10 +10,12 @@
     商品名称：<input type="text" name="commodity_name"> <br>
     商品单价：<input type="text" name="commodity_price"> <br>
     商品分类：
+
+
     <select name="commodity_sort">
-        <option value="LOL">LOL</option>
-        <option value="DNF">DNF</option>
-        <option value="M3G">M3G</option>
+        {%for i in commodity_sort%}
+       <option value="i.sort_shortcut">{{i.sort_shortcut}}</option>
+       {%endfor%}
     </select> <br>
 
     库存数量：<input type="text" name="stock"> <br>

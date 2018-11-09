@@ -5,14 +5,19 @@ app_name = 'taobao'
 urlpatterns = [
     path('', views.Enter, name='Enter'),
     path('user_BigTitle/', views.user_BigTitle, name='user_BigTitle'),
+
     #   注册用户
     path('user_Registered/', views.user_Registered, name='user_Registered'),
-    path('user_Registered_2/', views.user_Registered_2, name='user_Registered_2'),
 
+    #   登陆后的大标题
     path('<user_id>/user_TwoTitle/', views.user_TwoTitle, name='user_TwoTitle'),
+
+    #   查看用户登录记录
+    path('user_history/', views.user_history, name='user_history'),
+
     #   登录用户
-    path('user_Login/', views.user_Login, name='user_Login'),
     path('user_Login_2/', views.user_Login_2, name='user_Login_2'),
+
     #   查看账户信息
     path('<user_id>/user_look/', views.user_look, name='user_look'),
 
@@ -60,6 +65,16 @@ urlpatterns += [
     #   升级商家支付金额
     path('<user_id>/decuct/', views.decuct, name='decuct'),
 
+    #   查看商品的分类
+    path('<user_id>/commodity_sort/', views.commodity_sort, name='commodity_sort'),
+
+    #   添加商品分类
+    path('<user_id>/add_sort/', views.add_sort, name='add_sort'),
+
+    #   确认添加商品分类
+    path('<user_id>/check_add_sort/', views.check_add_sort, name='check_add_sort'),
+
+
     #   发布商品
     path('<user_id>/commodity_pub/', views.commodity_pub, name='commodity_pub'),
 
@@ -69,6 +84,7 @@ urlpatterns += [
     #   查看发布的商品
     path('<user_id>/commodity_look_pub/', views.commodity_look_pub, name='commodity_look_pub'),
 
+    #   商品的大标题
     path('<user_id>/commodity_BigTitle/', views.commodity_BigTitle, name='commodity_BigTitle'),
 
     #   向上翻页
@@ -83,13 +99,7 @@ urlpatterns += [
     #   发布修改后商品
     path('<commodity_id>/<user_id>/commodity_modify_sub/', views.commodity_modify_usb, name='commodity_modify_sub'),
     path('<commodity_id>/<user_id>/commodity_modify_2/', views.commodity_modify_2, name='commodity_modify_2'),
+    path('index/', views.index, name='index')
 
 ]
 
-
-# #   利用django的form框架
-urlpatterns += [
-    path('form_show/', views.form_show, name='form_show'),
-    path('login_success/', views.form_login_success, name='login_success'),
-
-]
