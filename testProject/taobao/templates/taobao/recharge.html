@@ -1,23 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>充值余额</title>
-</head>
-<body>
-    {%if user_id%}
-        <form action="{%url 'taobao:recharge_2' user_id%}" method="post">
-            {% csrf_token %}
-            <!--{%if b%}-->
-            <!--金额不足,请充值-->
-            <!--{%endif%}-->
-            正在充值金额：
-            <br>
-            请输入充值金额：
-            <input type="text" name="RMB">
-            <input type="submit" value="充值">
-            <a href="{%url 'taobao:user_TwoTitle' user_id%}">返回上一页</a>
-        </form>
-    {%endif%}
-</body>
-</html>
+{%extends "taobao/index.html"%}
+
+{% block content%}
+    <center>
+
+        {%if error%}
+            <h1>{{error}}</h1>
+        {%endif%}
+        {%if a%}
+            <form action="{%url 'taobao:recharge'%}" method="post">
+                {% csrf_token %}
+                <h1>正在充值金额：</h1>
+                <br>
+                <h1>请输入充值金额：</h1>
+                <input type="text" name="user_RMB">
+                <input type="submit" value="充值">
+                <h1>{{form.errors}}</h1>
+            </form>
+        {%endif%}
+
+    </center>
+{% endblock%}

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+	{%load static%}
+	<link rel="shortcut icon" href="{% static 'taobao/ico/3.ico'%}" type="image/x-icon"/>
+	<style>
+		*{
+			padding: 0;
+			margin: 0;
+			list-style: none;
+			box-sizing: border-box;
+		}
+		a{
+			text-decoration: none;
+		}
+		html,body{
+			height: 100%;
+			position: relative;
+
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.logo{
+			/* border: black 1px solid; */
+			width: 1800px;
+			height: 100px;
+			position: absolute;
+			top: 0px;
+			
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.logo_title{
+			/* border: black 1px solid; */
+			width: 400px;
+			height: 70px;
+			position: absolute;
+			left: 100px;
+		}
+		.head{
+			width: 1800px;
+			height: 50px;
+			position: absolute;
+			top: 100px;
+		}
+		.head_ul{
+			margin: 0 auto;
+			width: 100%;
+			height: 50px;
+			position: absolute;
+			right: 0px;
+		}
+		.head_ul >li{
+			list-style-type: none;
+			float: left;
+
+		}
+		.head_ul li >a{
+			display: block;
+			width: 300px;
+			height: 50px;
+			font-family: Microsoft Yahei;
+			line-height: 50px;
+			background-color: #2f4f4f;
+			margin: 0px 0px;
+			color: #fff;
+			text-align: center;
+			text-decoration: none;
+			font-size: 15px;
+		}
+		.head_ul li >a:hover{
+			background-color: #2f6f4f;
+		}
+		.box{
+			/* border: black 1px solid; */
+			width: 1500px;
+			height: 80%;
+			position: absolute;
+			top: 160px;
+		}
+
+		img{
+			width: 100%;
+			height: 100%;
+		}
+
+		.box_ul li{
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			opacity: 0;
+			transition: 0.8s;
+		}
+		.box_ul li:first-child{
+			opacity: 1;
+		}
+
+		.but{
+			width: 80px;
+			height: 30px;
+			background:rgba(0,0,0,0.7);
+			color:white;
+			position: absolute;
+			top: 400px;
+			line-height: 30px;
+			text-align: center;
+			cursor: pointer;
+		}
+		#next{
+			right: 0px;
+		}
+		.but:hover{
+
+			background: rgba(0,0,0,0.9);
+		}
+		.but:active{
+			background: rgba(0,0,0,0.5);
+		}
+	</style>
+</head>
+<body>
+	<div class="logo">
+		<div class="logo_title">
+			<img src="{% static 'taobao/logo/1.jpg'%}" alt="">
+		</div>
+	</div>
+
+	<div class="head">
+		<ul class='head_ul'>
+			<li><a href="{%url 'taobao:index'%}">首页</a></li>
+			<li><a href="{%url 'taobao:shopping'%}">购物商城</a></li>
+			<li><a href="{%url 'taobao:recharge'%}">账号充值</a></li>
+			<li><a href="{%url 'taobao:user_control'%}">用户管理</a></li>
+			<li><a href="{%url 'taobao:permission'%}">商家管理</a></li>
+			<li><a href="{%url 'taobao:user_look' %}">登录状态</a></li>
+		</ul>
+	</div>
+	{%block content%}
+	<div class="box">
+		<ul class="box_ul">
+			<li class="ulli"><img src="{% static 'taobao/images/1.jpg'%}" alt=""></li>
+			<li class="ulli"><img src="{% static 'taobao/images/2.jpg'%}" alt=""></li>
+			<li class="ulli"><img src="{% static 'taobao/images/3.jpg'%}" alt=""></li>
+			<li class="ulli"><img src="{% static 'taobao/images/4.jpg'%}" alt=""></li>
+			<li class="ulli"><img src="{% static 'taobao/images/5.jpg'%}" alt=""></li>
+		</ul>
+			<div class="but" id='prev'>prev</div>
+			<div class="but" id='next'>next</div>
+	</div>
+	{%endblock%}
+</body>
+{%comment%}
+<script>
+	var	ulli = document.getElementsByClassName('ulli')
+	var prev = document.getElementById('prev');
+	var next = document.getElementById('next');
+	var index = 0;
+
+
+	window.onload=function(){
+		loop()
+	};
+
+
+	function loop(){
+		loop2=setInterval(function(){
+			index++;
+			if (index==5){
+				index=0;
+			}
+			for (var i=0;i<ulli.length;i++){
+				ulli[i].style.opacity=0
+			}
+			ulli[index].style.opacity=1;
+		},2000)
+	}
+
+
+	function next1(){
+		index++;
+		if (index==ulli.length){
+			index=0
+		}
+		for (var i=0; i<ulli.length;i++){
+			ulli[i].style.opacity=0;
+		}
+		ulli[index].style.opacity=1;
+	};
+
+	function prev1() {
+		index--;
+		if (index==-1){
+			index=ulli.length-1
+		}
+		for (var i=0;i<ulli.length;i++){
+			ulli[i].style.opacity=0;
+		}
+		ulli[index].style.opacity=1;
+	}
+
+
+	function clear(){
+		clearInterval(loop2)
+	}
+
+
+	next.addEventListener("mouseover", clear)
+	next.addEventListener("click",next1);
+	next.addEventListener("mouseout",loop);
+
+	prev.addEventListener("mouseover",clear);
+	prev.addEventListener("click",prev1);
+	prev.addEventListener("mouseout",loop);
+	
+</script>
+{%endcomment%}
+</html>

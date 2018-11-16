@@ -1,25 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>发布商品</title>
-</head>
-<body>
+{%extends 'taobao/index.html'%}
+{%block content%}
+<center>
+    <form action="{% url 'taobao:commodity_pub'%}" method="post" enctype="multipart/form-data">
+        {%csrf_token%}
+        <ul>
+            <h1>{{form.as_ul}}</h1>
+        </ul>
+        {{form.error}}
+        <br>
+        <input type="submit" value="发布">
+    </form>
+</center>
+
+
+
+{%comment%}
    <form action="{%url 'taobao:commodity_add' user_id%}" method="post">
-    {%csrf_token%}
-    商品名称：<input type="text" name="commodity_name"> <br>
-    商品单价：<input type="text" name="commodity_price"> <br>
-    商品分类：
+        {%csrf_token%}
+        商品名称：<input type="text" name="commodity_name"> <br>
+        商品单价：<input type="text" name="commodity_price"> <br>
+        商品分类：
 
 
-    <select name="commodity_sort">
-        {%for i in commodity_sort%}
-       <option value="i.sort_shortcut">{{i.sort_shortcut}}</option>
-       {%endfor%}
-    </select> <br>
+        <select name="commodity_sort">
+            {%for i in commodity_sort%}
+           <option value="i.sort_shortcut">{{i.sort_shortcut}}</option>
+           {%endfor%}
+        </select> <br>
 
-    库存数量：<input type="text" name="stock"> <br>
-    <input type="submit" value="发布">
-</form>
-</body>
-</html>
+        库存数量：<input type="text" name="stock"> <br>
+        <input type="submit" value="发布">
+    </form>
+{%endcomment%}
+
+
+{%endblock%}

@@ -1,0 +1,15 @@
+{% for i in commodity %}
+    <li>
+    商品编号：{{i.commodity_id}}
+    商品名字：{{i.commodity_name}}
+    商品价格：{{i.commodity_price}}
+    商品分类：{{i.commodity_sort}}
+    商品库存：{{i.stock}}
+    商品发布日期：{{i.publish_date|date:'Y-m-d H-i-s'}}
+
+    商品图片:<img src="{% replace_str i.commodity_photo %}" style="width: 100px; height: 100px;">
+    </li>
+
+{%empty%}
+        你暂时没有发布任何商品
+{% endfor %}

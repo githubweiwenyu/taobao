@@ -1,21 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>查看用户登录记录</title>
-</head>
-<body>
-    <ul>
-    {%for i in user_historys%}
-        <li>
-            用户的id是：{{i.loginuser_id}}
-            用户的登录时间是：{{i.login_time}}
-        </li>
-        {%empty%}
-            目前没有用户登录
-    {%endfor%}
+{% extends "taobao/index.html" %}
 
-    </ul>
-<input type="button" value="返回首页" onClick="location.href= '{%url 'taobao:Enter'%}'">
-</body>
-</html>
+
+
+{%block content%}
+    <center>
+
+        {%for i in user_history%}
+
+            <h2>用户的id是：{{i.loginuser_id}},用户的登录时间是：{{i.login_time}}</h2>
+            {%empty%}
+                <h2>目前没有用户登录</h2>
+            {%endfor%}
+
+
+    </center>
+
+{%endblock%}

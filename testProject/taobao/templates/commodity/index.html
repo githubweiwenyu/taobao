@@ -1,0 +1,13 @@
+{%extends 'taobao/index.html'%}
+
+{%block content%}
+    <center>
+
+        <h1><a href="{%url 'taobao:commodity_pub'%}">发布商品</a></h1>
+        <h1><a href="{%url 'taobao:commodity_look_pub'%}">查看发布的商品</a></h1>
+        {%comment%}
+        <h1><a href="{%url 'taobao:commodity_modify'%}">修改发布的商品</a></h1>
+        <h1><a href="{%url 'taobao:commodity_sort'%}">查看商品的分类</a></h1>
+        {%endcomment%}
+    </center>
+{%endblock%}

@@ -1,0 +1,11 @@
+{% extends "taobao/index.html"%}
+
+{%block content%}
+<center>
+    <h1><a href="{%url 'taobao:user_Registered'%}">注册用户</a></h1>
+    <h1><a href="{%url 'taobao:user_Login'%}">登录用户</a></h1>
+    <h1><a href="{%url 'taobao:user_history'%}">用户登录记录</a></h1>
+    <h1><a href="{%url 'taobao:verify'%}">忘记密码</a></h1>
+</center>
+
+{%endblock%}

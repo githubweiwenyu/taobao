@@ -1,48 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>注册</title>
-</head>
-<body>
-    <div>
-        {%comment%}
-        <h1>Welcome to register</h1>
-        {%if a%}
-        <h1>账号重复，请重新输入</h1>
-        {%endif%}
-        <form action="{%url 'taobao:user_Registered'%}" method="post">
-            {% csrf_token %}
-            user_account:<input type="text" name="user_account" placeholder="输入账号，长度为20"><br>
-            user_password:<input type="text" name="user_password" placeholder="输入密码，长度为20"><br>
-            user_question:<input type="text" name="user_question" placeholder="输入密保提示问题，用于找回密码"><br>
-            user_answer:<input type="text" name="user_answer" placeholder="输入问题答案"><br>
-            user_name:<input type="text" name="user_name" placeholder="请输入真实姓名"><br>
-            <input type="submit" value="注册">
-        </form>
-        {%endcomment%}
+{% extends "taobao/index.html"%}
 
 
 
+{%block content%}
+<center>
 
-        <form action="{% url 'taobao:user_Registered' %}" method="post">
-            {% csrf_token %}
-            <p>
-                {{ form.as_ul}}
+		<form action="{%url 'taobao:user_Registered'%}" method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+			<h2>用户账号:<input type="text" name="user_account" placeholder="输入账号，长度为20"><br></h2>
+			<h2>用户密码:<input type="text" name="user_password" placeholder="输入密码，长度为20"><br></h2>
+			<h2>密保问题:<input type="text" name="user_question" placeholder="输入密保提示问题"><br></h2>
+			<h2>密保答案:<input type="text" name="user_answer" placeholder="输入问题答案"><br></h2>
+			<h2>真实姓名:<input type="text" name="user_name" placeholder="请输入真实姓名"><br></h2>
+			<h2>用户头像:<input type="file" name="user_portrait"></h2>
+			<input type="submit" value="注册用户">
 
-            </p>
-            <div>{{form.errors}}</div>
-            <p>{{error_msg}}</p>
-            <input type="submit" value="提交" />
-        </form>
-
-
-
-    </div>
-
-<input type="button" value="返回首页" onClick="location.href= '{% url 'taobao:user_BigTitle' %}'"/>
-
-
-
-</body>
-</html>
+            {{form.errors}}
+		</form>
+</center>
+{%endblock%}

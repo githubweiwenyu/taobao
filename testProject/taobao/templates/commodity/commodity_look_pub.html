@@ -1,29 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>查看自己发布的商品</title>
-</head>
-<body>
-<h1>发布的商品如下</h1>
+{%extends 'taobao/index.html'%}
+{%load static%}
+{% load strs %}
+{%block content%}
 
-<ul>
-    {% for i in commodity %}
-    <li>
-        商品编号：{{i.commodity_id}}
-        商品名字：{{i.commodity_name}}
-        商品价格：{{i.commodity_price}}
-        商品分类：{{i.commodity_sort}}
-        商品库存：{{i.stock}}
-        商品发布日期：{{i.publish_date}}
-    </li>
+        <ul id="ul">
+            {% for i in commodity %}
+            <li>
+
+            商品编号：{{i.commodity_id}}
+            商品名字：{{i.commodity_name}}
+            商品价格：{{i.commodity_price}}
+            商品分类：{{i.commodity_sort}}
+            商品库存：{{i.stock}}
+            商品发布日期：{{i.publish_date|date:'Y-m-d H-i-s'}}
+
+            商品图片:<img src="{% replace_str i.commodity_photo %}" style="width: 100px; height: 100px;">
+            </li>
+
+
         {%empty%}
-            你暂时没有发布任何商品
-    {% endfor %}
-</ul>
-    <a href="{%url 'taobao:up' page user_id %}">上一页</a>
-    <a href="{%url 'taobao:next' page user_id %}">下一页</a>
-<input type="button" value="返回上一级" onclick="location.href= '{%url 'taobao:commodity_BigTitle' user_id %}'">
+                你暂时没有发布任何商品
+        {% endfor %}
 
-</body>
-</html>
+        </ul>
+
+
+        <br>
+        <a href="{%url 'taobao:up' page%}" id="prev">上一页</a>
+        <a href="{%url 'taobao:next' page%}" id="next">下一页</a>
+
+
+
+
+<script type="text/javascript" src="{% static 'taobao/js/jquery.js'%}"></script>
+<script>
+	$(document).ready(function(){
+		$("#next").click(function(){
+			console.log('2222222222')
+			htmlobj=$.ajax({url:"{% url 'taobao:up' page%}",async:false});
+			$("#ul").html(htmlobj.responseText);
+			
+		})
+	})
+	
+</script>
+{%endblock%}

@@ -128,3 +128,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_ROOT = "taobao/static/"
+
+MEDIA_URL = "/media/"
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.qq.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = '2523007692@qq.com'
+EMAIL_HOST_PASSWORD = 'ocvuxdvwzvkcebee'
+EMAIL_FROM = EMAIL_HOST_USER
+EMAIL_USE_SSL = True
+
+

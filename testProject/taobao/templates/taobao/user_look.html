@@ -1,21 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>查看账户信息</title>
-</head>
-<body>
-    {%if user %}
-            {% if user_id%}
-                <h1>正在查看账户信息</h1>
-                <h2>user_account:{{user.user_account}}</h2>
-                <h2>user_password:{{user.user_password}}</h2>
-                <h2>user_name:{{user.user_name}}</h2>
-                <h2>user_RMB:{{user.user_RMB}}</h2>
-                <h2>user_time:{{user.user_time}}</h2>
-                <a href="{%url 'taobao:user_TwoTitle' user_id%}"><h1>返回上一页</h1></a>
-            {% endif %}
-    {% endif %}
-</body>
+{% extends "taobao/index.html"%}
+{% load static%}
+{%block content%}
+    <center>
+        {%if user_id%}
+            <h1>用户账号为：{{user_id}}</h1>
+            {%if user_user %}
+                <h1>-----------------------------------------</h1>
+                <h1>用户的详细信息为:</h1>
+                <h2>用户账号:{{user_user.user_account}}</h2>
+                <h2>用户钱包:{{user_user.user_RMB}}</h2>
+                <h2>注册时间:{{user_user.user_time|date:'Y-m-d H-i-s'}}</h2>
+                <h2>用户头像：<img src="{% static a %}" style="width: 100px; height: 100px;" /></h2>
+                <input type="button" value="退出登录" onclick="location.href='{% url 'taobao:logout'%}'">
+                <input type="button" value="修改密码" onclick="location.href='{%url 'taobao:modify_password'%}'">
 
-</html>
+            {% endif %}
+
+        {%endif%}
+    </center>
+
+
+{%endblock%}

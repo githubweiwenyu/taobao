@@ -1,0 +1,19 @@
+{%extends 'taobao/index.html'%}
+
+{%block content%}
+  <center>
+        {%if error%}
+            <h1>{{error}}</h1>
+        {%endif%}
+
+        {%if b%}
+            <h1>{{b}}</h1>
+        {%endif%}
+
+        {% if a%}
+            <h1>你现在还不是商家，升级为商家需要交付10w元保证金，是否支付？</h1>
+            <input type="button" value="支付" onclick="location.href= '{%url 'taobao:deduct'%}'">
+        {%endif%}
+
+  </center>
+{%endblock%}
